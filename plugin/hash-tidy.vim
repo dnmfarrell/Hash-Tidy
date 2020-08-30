@@ -6,6 +6,7 @@ function! HashTidyAlignKeyPairs(startline, endline)
     let whitespace = repeat(' ', startCol - col('.'))
     exec ':normal! i' . whitespace
   endwhile
+  exec 'normal! ' . a:startline . 'G1|w'
 endfunction
 
 function! HashTidySortKeyPairs(startline, endline)
