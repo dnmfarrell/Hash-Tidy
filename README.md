@@ -1,6 +1,6 @@
 Hash-Tidy
 ---------
-Fight entropy with this handy Perl key-value tidier for vim.
+Fight entropy and disorder! Tidy your Perl hashes in vim.
 
 It sorts the keys by length:
 
