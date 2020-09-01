@@ -22,7 +22,14 @@ endfunction
 
 function! HashTidyInsertFirstWordLength()
   norm 1|w
-  let wordlen=len(expand('<cWORD>'))
+  let startCol = col('.')
+  let firstChar = getline('.')[startCol-1]
+  if firstChar == "'" || firstChar == '"'
+    exec 'normal! f' . firstChar
+    let wordlen = col('.') - startCol + 1
+  else
+    let wordlen = len(expand('<cword>'))
+  endif
   norm 1|
   exec 'normal! i' . wordlen
 endfunction
