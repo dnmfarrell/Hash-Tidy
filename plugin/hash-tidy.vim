@@ -1,12 +1,28 @@
 function! HashTidyAlignKeyPairs(startline, endline)
+  let maxCol = HashTidyFindMaxSeparatorCol(a:startline, a:endline)
+  exec 'normal! ' . a:startline . 'G1|w'
   norm 1|f=
-  let startCol = col('.')
+  let whitespace = repeat(' ', maxCol - col('.'))
+  exec ':normal! i' . whitespace
   while line('.') < a:endline
     norm j1|f=
-    let whitespace = repeat(' ', startCol - col('.'))
+    let whitespace = repeat(' ', maxCol - col('.'))
     exec ':normal! i' . whitespace
   endwhile
   exec 'normal! ' . a:startline . 'G1|w'
+endfunction
+
+function! HashTidyFindMaxSeparatorCol(startline, endline)
+  exec 'normal! ' . a:startline . 'G1|w'
+  norm 1|f=
+  let maxCol = col('.')
+  while line('.') < a:endline
+    norm j1|f=
+    if col('.') > maxCol
+      let maxCol = col('.')
+    endif
+  endwhile
+  return maxCol
 endfunction
 
 function! HashTidySortKeyPairs(startline, endline)
@@ -40,4 +56,5 @@ function! HashTidySortAlignKeyPairs () range
 endfunction
 
 command! -range HashTidySortRange call HashTidySortKeyPairs(<line1>,<line2>)
+command! -range HashTidyAlignRange call HashTidyAlignKeyPairs(<line1>,<line2>)
 command! -range HashTidySortAlignRange <line1>,<line2>call HashTidySortAlignKeyPairs()
