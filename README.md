@@ -16,8 +16,7 @@ Or do both:
 
 Installation
 ------------
-This assumes you have Vim's builtin [filetype plugin option]
-(http://vimdoc.sourceforge.net/htmldoc/filetype.html#:filetype-plugin-on)
+This assumes you have Vim's builtin [filetype plugin option](http://vimdoc.sourceforge.net/htmldoc/filetype.html#:filetype-plugin-on)
 enabled. (e.g. something like `filetype plugin on` in your `.vimrc`).
 
 To install as a plugin, save `plugin/hash-tidy.vim` to
