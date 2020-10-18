@@ -54,7 +54,3 @@ function! dnmfarrell#hashtidy#HashTidySortAlignKeyPairs () range
   call dnmfarrell#hashtidy#HashTidySortKeyPairs(a:firstline, a:lastline)
   call dnmfarrell#hashtidy#HashTidyAlignKeyPairs(a:firstline, a:lastline)
 endfunction
-
-command! -range HashTidySortRange call dnmfarrell#hashtidy#HashTidySortKeyPairs(<line1>,<line2>)
-command! -range HashTidyAlignRange call dnmfarrell#hashtidy#HashTidyAlignKeyPairs(<line1>,<line2>)
-command! -range HashTidySortAlignRange <line1>,<line2>call dnmfarrell#hashtidy#HashTidySortAlignKeyPairs()
