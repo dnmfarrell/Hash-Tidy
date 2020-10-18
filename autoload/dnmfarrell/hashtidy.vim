@@ -1,5 +1,5 @@
-function! HashTidyAlignKeyPairs(startline, endline)
-  let maxCol = HashTidyFindMaxSeparatorCol(a:startline, a:endline)
+function! dnmfarrell#hashtidy#HashTidyAlignKeyPairs(startline, endline)
+  let maxCol = s:HashTidyFindMaxSeparatorCol(a:startline, a:endline)
   exec 'normal! ' . a:startline . 'G1|w'
   norm 1|f=
   let whitespace = repeat(' ', maxCol - col('.'))
@@ -12,7 +12,7 @@ function! HashTidyAlignKeyPairs(startline, endline)
   exec 'normal! ' . a:startline . 'G1|w'
 endfunction
 
-function! HashTidyFindMaxSeparatorCol(startline, endline)
+function! s:HashTidyFindMaxSeparatorCol(startline, endline)
   exec 'normal! ' . a:startline . 'G1|w'
   norm 1|f=
   let maxCol = col('.')
@@ -25,18 +25,18 @@ function! HashTidyFindMaxSeparatorCol(startline, endline)
   return maxCol
 endfunction
 
-function! HashTidySortKeyPairs(startline, endline)
-  call HashTidyInsertFirstWordLength()
+function! dnmfarrell#hashtidy#HashTidySortKeyPairs(startline, endline)
+  call s:HashTidyInsertFirstWordLength()
   while line('.') < a:endline " handle end of file
     norm j
-    call HashTidyInsertFirstWordLength()
+    call s:HashTidyInsertFirstWordLength()
   endwhile
   exec ':' . a:startline . ',' . a:endline . 'sort!n'
   exec ':' . a:startline . ',' . a:endline . 's/^\d\+//e'
   exec 'normal! ' . a:startline . 'G'
 endfunction
 
-function! HashTidyInsertFirstWordLength()
+function! s:HashTidyInsertFirstWordLength()
   norm 1|w
   let startCol = col('.')
   let firstChar = getline('.')[startCol-1]
@@ -50,11 +50,11 @@ function! HashTidyInsertFirstWordLength()
   exec 'normal! i' . wordlen
 endfunction
 
-function! HashTidySortAlignKeyPairs () range
-  call HashTidySortKeyPairs(a:firstline, a:lastline)
-  call HashTidyAlignKeyPairs(a:firstline, a:lastline)
+function! dnmfarrell#hashtidy#HashTidySortAlignKeyPairs () range
+  call dnmfarrell#hashtidy#HashTidySortKeyPairs(a:firstline, a:lastline)
+  call dnmfarrell#hashtidy#HashTidyAlignKeyPairs(a:firstline, a:lastline)
 endfunction
 
-command! -range HashTidySortRange call HashTidySortKeyPairs(<line1>,<line2>)
-command! -range HashTidyAlignRange call HashTidyAlignKeyPairs(<line1>,<line2>)
-command! -range HashTidySortAlignRange <line1>,<line2>call HashTidySortAlignKeyPairs()
+command! -range HashTidySortRange call dnmfarrell#hashtidy#HashTidySortKeyPairs(<line1>,<line2>)
+command! -range HashTidyAlignRange call dnmfarrell#hashtidy#HashTidyAlignKeyPairs(<line1>,<line2>)
+command! -range HashTidySortAlignRange <line1>,<line2>call dnmfarrell#hashtidy#HashTidySortAlignKeyPairs()
