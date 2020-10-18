@@ -1,2 +1,10 @@
 *.pm
 *.xcf
+
+# Backup and temporary files
+*.swp
+*~
+~*
+*.bak
+*.tdy
+*.old
